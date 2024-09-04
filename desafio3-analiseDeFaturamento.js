@@ -2,10 +2,8 @@ const fs = require('fs');
 
 function analisarFaturamento() {
     
-    const data = fs.readFileSync('faturamento.json');
-    const faturamento = JSON.parse(data);
-
-    const faturamentoDiario = faturamento.faturamento_diario;
+    const data = fs.readFileSync('dados.json');
+    const faturamentoDiario = JSON.parse(data);
 
     if (faturamentoDiario.length === 0) {
         console.log("Não há dados de faturamento.");
@@ -18,10 +16,10 @@ function analisarFaturamento() {
     let diasComFaturamento = 0;
 
     faturamentoDiario.forEach(dia => {
-        if (dia.faturamento > 0) {
-            if (dia.faturamento < menorFaturamento) menorFaturamento = dia.faturamento;
-            if (dia.faturamento > maiorFaturamento) maiorFaturamento = dia.faturamento;
-            totalFaturamento += dia.faturamento;
+        if (dia.valor > 0) {
+            if (dia.valor < menorFaturamento) menorFaturamento = dia.valor;
+            if (dia.valor > maiorFaturamento) maiorFaturamento = dia.valor;
+            totalFaturamento += dia.valor;
             diasComFaturamento++;
         }
     });
@@ -30,7 +28,7 @@ function analisarFaturamento() {
 
     let diasAcimaDaMedia = 0;
     faturamentoDiario.forEach(dia => {
-        if (dia.faturamento > mediaFaturamento) diasAcimaDaMedia++;
+        if (dia.valor > mediaFaturamento) diasAcimaDaMedia++;
     });
 
     console.log(`Menor valor de faturamento: ${menorFaturamento}`);
